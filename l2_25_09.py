@@ -68,6 +68,7 @@ print(r_e(rng))
 
 #6------------------------------------------------------------
 
+# Функция, которая определяет скажем степень 10, например для 4000 это 3 ведь 10^3 == 1000
 def define_power(n: int) -> int:
     pow = 1
     while 10**pow <= n:
@@ -76,6 +77,8 @@ def define_power(n: int) -> int:
 
 def solution(n:int) -> int:
     pow = define_power(n)
+
+    # На числах после, больших 10^100 заметил, что приходится расширять диапазон кандидатов для отрезка, причем это приходится делать каждые 10^100
     powl = pow - pow // 100
     powr = pow + pow // 100 + 4
     lst_candidates = {
@@ -83,35 +86,42 @@ def solution(n:int) -> int:
         for i in range(powl, powr)
     }
 
+
     if n in lst_candidates:
         return int(str(10**lst_candidates[n] - 1)[-1])
 
+    # Определяем промежуток в котором находится цифра в строке
     r_s = [c for c in lst_candidates.keys() if n < c][0]
     l_s = [c for c in lst_candidates.keys() if n > c][-1]
     rng_s = [l_s, r_s]
 
+    # Определяем промежуток в котором находится число с искомой цифрой
     pow_l = lst_candidates[rng_s[0]]
     pow_r = lst_candidates[rng_s[1]]
 
     rng_n = [10**pow_l, 10**pow_r]
 
+    # Вычисляем сколько нужно прибавить к началу промежутка чисел, чтобы получить число близкое к числу с искомой цифрой
     c = (n - rng_s[0] - 1) // pow_r - 1
     c = c if c >= 0 else 0
 
     right_b = rng_n[0] + c
 
-    right_s = rng_s[0] + 1 + c * lst_candidates[rng_s[1]]
+    right_s = rng_s[0] + 1 + c * pow_r
 
+    # Берем небольшой промежуток цифр и формируем строку
     x1 = right_b
     x2 = x1 + 4
     string = list("".join([str(x) for x in range(x1, x2 + 1)]))
 
+    # Нумеруем каждую цифру из строки начиная с right_s
     y = list(map(int, string))
     x = [x + right_s for x in range(len(y))]
 
+    # Делаем словарь номер: цифра
     result = {x[i]: y[i] for i in range(len(x))}
 
     return result[n]
 
-n = 12312312# числа большие 10**100
+n = 12312312# Любое число, которое может обработать python
 print(solution(n))
