@@ -76,13 +76,15 @@ def define_power(n: int) -> int:
 
 def solution(n:int) -> int:
     pow = define_power(n)
+    powl = pow - pow // 100
+    powr = pow + pow // 100 + 4
     lst_candidates = {
         int(((9 * i - 10) * 10 ** (i - 1) + 1)) // 9: i - 1
-        for i in range(pow-1, pow + 4)
+        for i in range(powl, powr)
     }
 
     if n in lst_candidates:
-        return str(10**lst_candidates[n] - 1)[-1]
+        return int(str(10**lst_candidates[n] - 1)[-1])
 
     r_s = [c for c in lst_candidates.keys() if n < c][0]
     l_s = [c for c in lst_candidates.keys() if n > c][-1]
@@ -111,5 +113,5 @@ def solution(n:int) -> int:
 
     return result[n]
 
-n = 120012 # числа большие 10**100
+n = 12312312# числа большие 10**100
 print(solution(n))
