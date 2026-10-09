@@ -8,7 +8,7 @@ DATE_FORMAT = "%Y-%m-%d"
 def add(items: dict[str, list],
         title: str,
         amount: Optional[float | int],
-        expiration_date: Optional[str | None]=None):
+        expiration_date: Optional[str | None]=None) -> None:
 
     if title not in items:
         items[title] = []
@@ -20,7 +20,7 @@ def add(items: dict[str, list],
     items[title].append(info)
 
 def add_by_note(items: dict[str, list],
-                note: str):
+                note: str) -> None:
 
     note = note.split()
     expiration_date = None
