@@ -3,6 +3,7 @@
 
 import string
 
+
 RU_ALPHABET = "АБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ"
 ANG_ALPHABET = string.ascii_uppercase
 

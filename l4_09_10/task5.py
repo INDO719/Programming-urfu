@@ -8,7 +8,6 @@ alph_nr = {value: key for key, value in alph_rn.items()}
 
 
 def from_roman_to_numeral_converter(number: str) -> int:
-
     result = 0
 
     for sym in number[:]:
@@ -22,7 +21,6 @@ def from_roman_to_numeral_converter(number: str) -> int:
     return result
 
 def from_numeral_to_roman_converter(number: int) -> str:
-
     if number > 3999:
         raise ValueError("Нельзя передавать числа большие 3999")
 

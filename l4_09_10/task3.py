@@ -2,7 +2,6 @@
 
 
 def print_pack_report(amount: int) -> None:
-
     for n in range(amount, 0, -1):
 
         is_3 = n % 3 == 0

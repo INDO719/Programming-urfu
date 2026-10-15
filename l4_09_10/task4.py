@@ -7,7 +7,6 @@ from typing import Optional
 
 def generate_password(length: int, lowercase: bool,
                       uppercase: bool, special: bool, nums: bool) -> Optional[str | None]:
-
     if length == 0:
         print("Вы не указали длину")
         return

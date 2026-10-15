@@ -2,7 +2,6 @@
 
 
 def check_winners(scores: list[int], student_score: int) -> None:
-
     winners = [scores.pop(scores.index(max(scores))) for _ in range(3)]
     print("Вы в тройке победителей!" if student_score in winners else "Вы не попали в тройку победителей.")
 
