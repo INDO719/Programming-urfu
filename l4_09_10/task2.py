@@ -2,6 +2,22 @@
 
 
 def check_winners(scores: list[int], student_score: int) -> None:
+    """
+        Проверяет, входит ли результат студента в тройку победителей
+
+        Args:
+            scores (list[int]): Список результатов студентов.
+            student_score (int): Результат проверяемого студента
+
+        Returns:
+            None: Функция ничего не возвращает, только выводит результат проверки в консоль
+
+        Example:
+            >>> scores = [10, 20, 30, 40]
+            >>> check_winners(scores, 30)
+            Вы в тройке победителей!
+    """
+
     winners = [scores.pop(scores.index(max(scores))) for _ in range(3)]
     print("Вы в тройке победителей!" if student_score in winners else "Вы не попали в тройку победителей.")
 
