@@ -8,6 +8,20 @@ alph_nr = {value: key for key, value in alph_rn.items()}
 
 
 def from_roman_to_numeral_converter(number: str) -> int:
+    """
+        Преобразует римское число в целое число
+
+        Args:
+            number (str): Римское число в виде строки
+
+        Returns:
+            int: Целое число, соответствующее римскому числу
+
+        Example:
+            >>> from_roman_to_numeral_converter("XIV")
+            14
+    """
+
     result = 0
 
     for sym in number[:]:
@@ -21,6 +35,23 @@ def from_roman_to_numeral_converter(number: str) -> int:
     return result
 
 def from_numeral_to_roman_converter(number: int) -> str:
+    """
+        Преобразует целое число в римское число
+
+        Args:
+            number (int): Целое число для преобразования (не больше 3999)
+
+        Returns:
+            str: Римское представление числа
+
+        Raises:
+            ValueError: Если число больше 3999
+
+        Example:
+            >>> from_numeral_to_roman_converter(14)
+            'XIV'
+    """
+
     if number > 3999:
         raise ValueError("Нельзя передавать числа большие 3999")
 

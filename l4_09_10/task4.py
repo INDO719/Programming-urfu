@@ -7,6 +7,27 @@ from typing import Optional
 
 def generate_password(length: int, lowercase: bool,
                       uppercase: bool, special: bool, nums: bool) -> Optional[str | None]:
+    """
+        Генерирует случайный пароль заданной длины из выбранных наборов символов
+
+        Args:
+            length (int): Длина пароля
+            lowercase (bool): Использовать ли строчные буквы
+            uppercase (bool): Использовать ли заглавные буквы
+            special (bool): Использовать ли специальные символы
+            nums (bool): Использовать ли цифры
+
+        Returns:
+            Optional[str]: Сгенерированный пароль или None, если длина равна 0
+                           или не выбран ни один набор символов
+
+        Example:
+            >>> generate_password(8, True, True, True, True)
+            'aB3!xY9z'  # пример случайного пароля
+            >>> generate_password(0, True, True, True, True)
+            Вы не указали длину
+    """
+
     if length == 0:
         print("Вы не указали длину")
         return
