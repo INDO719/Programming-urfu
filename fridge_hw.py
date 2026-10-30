@@ -1,14 +1,14 @@
 import datetime
 from decimal import Decimal
-from typing import Optional
+from typing import Optional, Union
 
 
 DATE_FORMAT = "%Y-%m-%d"
 
 def add(items: dict[str, list],
         title: str,
-        amount: Optional[float | int],
-        expiration_date: Optional[str | None]=None) -> None:
+        amount: Decimal,
+        expiration_date: Optional[str]=None) -> None:
 
     if title not in items:
         items[title] = []
@@ -16,7 +16,7 @@ def add(items: dict[str, list],
     if expiration_date:
         expiration_date = datetime.datetime.strptime(expiration_date, DATE_FORMAT).date()
 
-    info = {"amount": Decimal(amount), "expiration_date": expiration_date}
+    info = {"amount": amount, "expiration_date": expiration_date}
     items[title].append(info)
 
 def add_by_note(items: dict[str, list],
@@ -28,7 +28,7 @@ def add_by_note(items: dict[str, list],
     if '-' in note[-1]:
         expiration_date = note.pop()
 
-    amount = note[-1]
+    amount = Decimal(note[-1])
     title = " ".join(note[:-1])
 
     add(items, title, amount, expiration_date)
@@ -82,7 +82,8 @@ def amount(items: dict[str, list],
     return products"""
 
 
-def get_expired(items, in_advance_days=0):
+def get_expired(items: dict[str: list],
+                in_advance_days: int=0) -> list[tuple]:
     today = datetime.date.today()
     expiration_date = today + datetime.timedelta(in_advance_days)
 
@@ -101,7 +102,7 @@ def get_expired(items, in_advance_days=0):
 
     return products
 
-def main():
+def main() -> None:
 
     goods = {'Яйца Фабрики №1': [{'amount': Decimal('1'),
                       'expiration_date': datetime.date(2026, 10, 15)}],
@@ -110,7 +111,6 @@ def main():
                       {'amount': Decimal('3'),
                        'expiration_date': datetime.date(2026, 10, 13)}],
  'макароны': [{'amount': Decimal('100'), 'expiration_date': None}]}
-
 
     print(get_expired(goods))
 
