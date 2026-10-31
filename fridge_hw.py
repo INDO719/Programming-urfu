@@ -9,7 +9,6 @@ def add(items: dict[str, list],
         title: str,
         amount: Decimal,
         expiration_date: Optional[str]=None) -> None:
-
     if title not in items:
         items[title] = []
 
@@ -21,7 +20,6 @@ def add(items: dict[str, list],
 
 def add_by_note(items: dict[str, list],
                 note: str) -> None:
-
     note = note.split()
     expiration_date = None
 
@@ -36,7 +34,6 @@ def add_by_note(items: dict[str, list],
 
 def find(items: dict[str, list],
          needle: str) -> list[str]:
-
     needle = needle.lower()
 
     result = []
@@ -49,7 +46,6 @@ def find(items: dict[str, list],
 
 def amount(items: dict[str, list],
            needle: str) -> Decimal:
-
     needle = needle.lower()
 
     list_of_needles = find(items, needle)
@@ -92,11 +88,11 @@ def get_expired(items: dict[str: list],
     for product, batches in items.items():
         lst_batch = []
         for batch in batches:
-            if batch['expiration_date'] is None:
+            if batch["expiration_date"] is None:
                 continue
 
-            if batch['expiration_date'] <= expiration_date:
-                lst_batch.append(batch['amount'])
+            if batch["expiration_date"] <= expiration_date:
+                lst_batch.append(batch["amount"])
         if len(lst_batch) != 0:
             products.append((product, sum(lst_batch)))
 
@@ -104,15 +100,29 @@ def get_expired(items: dict[str: list],
 
 def main() -> None:
 
-    goods = {'Яйца Фабрики №1': [{'amount': Decimal('1'),
-                      'expiration_date': datetime.date(2026, 10, 15)}],
- 'Фабрика №2: яйца': [{'amount': Decimal('2'),
-                       'expiration_date': datetime.date(2026, 10, 11)},
-                      {'amount': Decimal('3'),
-                       'expiration_date': datetime.date(2026, 10, 13)}],
- 'макароны': [{'amount': Decimal('100'), 'expiration_date': None}]}
+    goods = {
+        'Яйца Фабрики №1': [
+            {'amount': Decimal('1'), 'expiration_date': datetime.date(2026, 10, 15)}],
+        'Фабрика №2: яйца': [
+            {'amount': Decimal('2'), 'expiration_date': datetime.date(2026, 10, 11)},
+            {'amount': Decimal('3'), 'expiration_date': datetime.date(2026, 10, 13)}],
+        'макароны': [
+            {'amount': Decimal('100'), 'expiration_date': None}]
+    }
 
     print(get_expired(goods))
+
+    add(goods, "Пельмени Универсальные", Decimal("2"), "2026-10-28")
+    add(goods, "Пельмени Универсальные", Decimal("3"), "2026-10-28")
+
+    add_by_note(goods, "Яйца гусиные 4 2026-07-15")
+    add_by_note(goods, "4 сырка 2 2026-08-25")
+
+    print(goods)
+
+    print(find(goods, "пе"))
+
+    print(amount(goods, "пельмени"))
 
 if __name__ == '__main__':
     main()
