@@ -30,7 +30,7 @@ APPLE_COLOR = (255, 0, 0)
 SNAKE_COLOR = (0, 255, 0)
 
 # Скорость движения змейки:
-SPEED = 20
+SPEED = 5
 
 # Настройка игрового окна:
 screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT), 0, 32)
@@ -64,15 +64,15 @@ class Apple(GameObject):
         self.body_color = APPLE_COLOR
 
         self.randomize_position()
-        while self.position == [GRID_WIDTH // 2 * GRID_SIZE,
-                                GRID_HEIGHT // 2 * GRID_SIZE]:
+        while self.position == (GRID_WIDTH // 2 * GRID_SIZE,
+                                GRID_HEIGHT // 2 * GRID_SIZE):
             self.randomize_position()
 
     def randomize_position(self) -> None:
         """Устанавливает случайную позицию яблока в пределах сетки."""
         x = randint(0, GRID_WIDTH - 1) * GRID_SIZE
         y = randint(0, GRID_HEIGHT - 1) * GRID_SIZE
-        self.position = [x, y]
+        self.position = (x, y)
 
     def draw(self) -> None:
         """Отрисовывает яблоко."""
@@ -90,8 +90,8 @@ class Snake(GameObject):
         self.direction = RIGHT
         self.body_color = SNAKE_COLOR
 
-        self.position = [GRID_WIDTH // 2 * GRID_SIZE,
-                         GRID_HEIGHT // 2 * GRID_SIZE]
+        self.position = (GRID_WIDTH // 2 * GRID_SIZE,
+                         GRID_HEIGHT // 2 * GRID_SIZE)
         self.positions = [self.position]
 
         self.length = 1
@@ -140,11 +140,11 @@ class Snake(GameObject):
         if head_new_y_pos < 0:
             head_new_y_pos = SCREEN_HEIGHT - GRID_SIZE
 
-        self.positions = [[head_new_x_pos, head_new_y_pos]] + self.positions
+        self.positions = [(head_new_x_pos, head_new_y_pos)] + self.positions
 
         self.last = self.positions.pop()
 
-    def get_head_position(self) -> list[int]:
+    def get_head_position(self) -> tuple[int, int]:
         """Возвращает позицию головы змейки."""
         return self.positions[0]
 
@@ -154,8 +154,8 @@ class Snake(GameObject):
             cell = pygame.Rect(pos, (GRID_SIZE, GRID_SIZE))
             pygame.draw.rect(screen, BOARD_BACKGROUND_COLOR, cell)
 
-        self.position = [GRID_WIDTH // 2 * GRID_SIZE,
-                         GRID_HEIGHT // 2 * GRID_SIZE]
+        self.position = (GRID_WIDTH // 2 * GRID_SIZE,
+                         GRID_HEIGHT // 2 * GRID_SIZE)
         self.positions = [self.position]
 
         self.direction = RIGHT
@@ -182,6 +182,7 @@ def handle_keys(game_object: Snake) -> None:
 
 def main() -> None:
     """Основной цикл игры."""
+    
     # Инициализация PyGame:
     pygame.init()
     # Создаём экземпляры классов:
