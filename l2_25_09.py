@@ -123,5 +123,5 @@ def solution(n:int) -> int:
 
     return result[n]
 
-n = 12312312# Любое число, которое может обработать python
+n = 15576466665# Любое число, которое может обработать python
 print(solution(n))
